@@ -14,7 +14,6 @@ export default function then(onFulfillment, onRejection) {
   const parent = this;
 
   const child = new this.constructor(noop);
-
   if (child[PROMISE_ID] === undefined) {
     makePromise(child);
   }

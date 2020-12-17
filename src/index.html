@@ -3,17 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>源码阅读</title>
+    <title>mini promise</title>
+    <style>
+        .transform{
+            transform: translateZ(0);
+        }
+    </style>
 </head>
 <body>
     <div id="root">
+        test
     </div>
     <script>
+        let rootEl = document.getElementById('root');
         let p = new WPromise((resolve, reject) => {
-            resolve('success...1')
+            resolve('success...1');
+            // setTimeout(() => {
+            //     console.log('resolve')
+            //     resolve('success...1')
+            // }, 0)
         })
-        p.then(res => {
-            root.innerHTML = res;
+        p.then( res => {
+            console.log('err..', res)
+            return p
         })
     </script>
 </body>

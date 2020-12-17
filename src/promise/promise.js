@@ -132,14 +132,13 @@ function needsNew() {
 */
 
 class Promise {
-  constructor(resolver) {
+  constructor(executors) {
     this[PROMISE_ID] = nextId();
     this._result = this._state = undefined;
     this._subscribers = [];
-
-    if (noop !== resolver) {
-      typeof resolver !== 'function' && needsResolver();
-      this instanceof Promise ? initializePromise(this, resolver) : needsNew();
+    if (noop !== executors) {
+      typeof executors !== 'function' && needsResolver();
+      this instanceof Promise ? initializePromise(this, executors) : needsNew();
     }
   }
 

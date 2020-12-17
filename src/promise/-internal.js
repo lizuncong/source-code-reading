@@ -116,9 +116,8 @@ function fulfill(promise, value) {
 
   promise._result = value;
   promise._state = FULFILLED;
-
   if (promise._subscribers.length !== 0) {
-    asap(publish, promise);
+      asap(publish, promise);
   }
 }
 
@@ -139,7 +138,6 @@ function subscribe(parent, child, onFulfillment, onRejection) {
   _subscribers[length] = child;
   _subscribers[length + FULFILLED] = onFulfillment;
   _subscribers[length + REJECTED]  = onRejection;
-
   if (length === 0 && parent._state) {
     asap(publish, parent);
   }
@@ -156,7 +154,6 @@ function publish(promise) {
   for (let i = 0; i < subscribers.length; i += 3) {
     child = subscribers[i];
     callback = subscribers[i + settled];
-
     if (child) {
       invokeCallback(settled, child, callback, detail);
     } else {
@@ -167,10 +164,10 @@ function publish(promise) {
   promise._subscribers.length = 0;
 }
 
+// parent._state, child, callback, parent._result
 function invokeCallback(settled, promise, callback, detail) {
   let hasCallback = isFunction(callback),
       value, error, succeeded = true;
-
   if (hasCallback) {
     try {
       value = callback(detail);
@@ -178,7 +175,6 @@ function invokeCallback(settled, promise, callback, detail) {
       succeeded = false;
       error = e;
     }
-
     if (promise === value) {
       reject(promise, cannotReturnOwn());
       return;
@@ -186,7 +182,6 @@ function invokeCallback(settled, promise, callback, detail) {
   } else {
     value = detail;
   }
-
   if (promise._state !== PENDING) {
     // noop
   } else if (hasCallback && succeeded) {
@@ -200,9 +195,9 @@ function invokeCallback(settled, promise, callback, detail) {
   }
 }
 
-function initializePromise(promise, resolver) {
+function initializePromise(promise, executors) {
   try {
-    resolver(function resolvePromise(value){
+    executors(function resolvePromise(value){
       resolve(promise, value);
     }, function rejectPromise(reason) {
       reject(promise, reason);
