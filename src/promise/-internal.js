@@ -129,6 +129,7 @@ function reject(promise, reason) {
   asap(publishRejection, promise);
 }
 
+// parent, child, onFulfillment, onRejection
 function subscribe(parent, child, onFulfillment, onRejection) {
   let { _subscribers } = parent;
   let { length } = _subscribers;

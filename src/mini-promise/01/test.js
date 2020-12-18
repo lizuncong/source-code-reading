@@ -1,27 +1,18 @@
-const MiniPromise = require('./promise');
+const MiniPromise = require('./index');
 
-// let p = new MiniPromise((resolve, reject) => {
-//     console.log('new一个promise')
-//     resolve('success')
-//     reject('reject..error')
-// })
-//
-// p.then(res => {
-//     console.log('p...res', res)
-// }, err => {
-//     console.log('p...err', err)
-// })
-
-let p = new MiniPromise((resolve, reject) => {
-    console.log('new一个promise')
-    setTimeout(() => {
-        resolve('success')
-        reject('reject..error')
-    }, 0)
+let miniP = new MiniPromise((resolve, reject) => {
+    resolve('success')
 })
-
-p.then(res => {
-    console.log('p...res', res)
+miniP.then(res => {
+    console.log('成功回调', res)
 }, err => {
-    console.log('p...err', err)
+    console.log('失败回调', err)
+})
+let miniP2 = new MiniPromise((resolve, reject) => {
+    reject('error')
+})
+miniP2.then(res => {
+    console.log('miniP2成功回调', res)
+}, err => {
+    console.log('miniP2失败回调', err)
 })

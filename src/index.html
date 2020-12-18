@@ -12,21 +12,35 @@
 </head>
 <body>
     <div id="root">
-        test
+        <!--test-->
     </div>
     <script>
-        let rootEl = document.getElementById('root');
-        let p = new WPromise((resolve, reject) => {
-            resolve('success...1');
+        // let p = new WPromise((resolve, reject) => {
+        //     resolve('success...1');
+        // })
+        // p.then( res => {
+        //     console.log('err.d.', res)
+        //     return p
+        // })
+        let miniP = new MiniPromise((resolve, reject) => {
+            resolve('success')
             // setTimeout(() => {
-            //     console.log('resolve')
-            //     resolve('success...1')
-            // }, 0)
+            //     resolve('success')
+            // }, 1000)
         })
-        p.then( res => {
-            console.log('err..', res)
-            return p
-        })
+        miniP
+            .then(res => {
+                console.log('第一个.res..', res)
+            }, err => {
+                console.log('第一个.err..', err)
+            })
+            .then(res => {
+                console.log('第二个.res...', res)
+            }, err => {
+                console.log('第二个.err...', err)
+            })
+
+
     </script>
 </body>
 
