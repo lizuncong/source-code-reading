@@ -70,6 +70,7 @@ function handleOwnThenable(promise, thenable) {
   }
 }
 
+// promise, value, then
 function handleMaybeThenable(promise, maybeThenable, then) {
   if (maybeThenable.constructor === promise.constructor &&
       then === originalThen &&
