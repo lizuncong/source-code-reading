@@ -1,3 +1,28 @@
+// 先来看字节的一道题
+function Foo(){
+    Foo.a = function(){
+        console.log(1);
+    }
+    this.a = function(){
+        console.log(2);
+    }
+}
+
+Foo.prototype.a = function(){
+    console.log(3)
+}
+Foo.a = function(){
+    console.log(4);
+}
+
+Foo.a();
+let obj = new Foo();
+obj.a()
+Foo.a()
+
+
+
+
 // 题目1
 class A {
     constructor(){
@@ -61,3 +86,5 @@ let p5 = new person(4)
 //     this.sayName = sayName;
 // }
 // let p2 = new person2('john')
+
+// 题目5 Object.create原理是啥，instanceof呢？
